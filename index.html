@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CIHS Marine Biology | Nitrogen Cycle</title>
+<style>
+:root{--navy:#123b5d;--teal:#187c82;--gold:#e3ad2f;--ink:#1d2935;--muted:#5d6b75;--line:#d8e0e5;--danger:#b7433e}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#f4f7f8}
+header{background:var(--navy);color:#fff;padding:18px 22px;border-bottom:5px solid var(--gold)}
+.header{max-width:1150px;margin:auto;display:flex;align-items:center;gap:15px}.logo{width:52px;height:52px;border-radius:50%;background:#fff;color:var(--navy);display:grid;place-items:center;font-weight:800}
+.kicker{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;opacity:.85}h1{margin:2px 0;font-size:28px}header p{margin:0;opacity:.9}
+main{max-width:1150px;margin:auto;padding:20px}.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px;margin-bottom:18px;box-shadow:0 4px 14px #123b5d12}
+.hero h2,.card h2{color:var(--navy);margin:0 0 8px}.hero p{line-height:1.5}.objective{background:#fff8df;border-left:5px solid var(--gold);padding:12px;border-radius:8px;font-weight:700}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px}.board{position:relative;min-height:610px;background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px;overflow:hidden}
+.board-title{text-align:center;font-weight:800;color:var(--navy)}.board-sub{text-align:center;font-size:12px;color:var(--muted);margin:5px 0}
+.res{position:absolute;width:145px;min-height:82px;background:#fbfcfd;border:2px solid #8da0ac;border-radius:12px;text-align:center;padding:8px}
+.res h3{margin:0;font-size:15px;color:var(--navy)}.res p{font-size:11px;color:var(--muted);margin:3px}.tokens{min-height:18px}
+.token{display:inline-block;width:13px;height:13px;border-radius:50%;background:var(--gold);border:1px solid #9b7616;margin:2px}
+#atm{top:65px;left:50%;transform:translateX(-50%)}#soil{top:210px;left:50%;transform:translateX(-50%)}#plants{top:365px;left:7%}#animals{top:500px;left:7%}#decomp{top:500px;right:7%}#water{top:365px;right:7%}#algae{top:500px;right:7%}
+.arrow{position:absolute;font-size:27px;font-weight:800;color:var(--teal)}#a1{top:155px;left:50%;transform:translateX(-50%)}#a2{top:305px;left:50%;transform:translateX(-50%)}#a3{top:410px;left:27%}#a4{top:470px;left:17%}#a5{top:470px;right:17%}#a6{top:410px;right:27%}
+.controls h2{margin-bottom:6px}.controls h3{font-size:13px;color:var(--teal);text-transform:uppercase;margin:15px 0 5px}
+button{width:100%;border:0;border-radius:8px;padding:10px;margin:3px 0;background:var(--teal);color:#fff;font-size:14px;font-weight:700;cursor:pointer}button:hover{filter:brightness(.94)}button.impact{background:var(--danger)}button.reset{background:#68757e}
+.message{margin-top:10px;padding:12px;background:#f1f5f6;border-radius:8px;font-size:13px;line-height:1.45;min-height:95px}.status{margin-top:9px;padding:11px;border-radius:8px;background:#e9f4ed;border:1px solid #a6c8b0;color:#245c38;font-size:13px}.warn{background:#fff6d8;border-color:#dfc66b;color:#6d5610}.dead{background:#fae4e1;border-color:#d9938f;color:#7c2925}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.step{background:#f3f7f8;border-radius:9px;padding:12px;text-align:center}.step b{display:block;color:var(--teal);margin-bottom:4px}
+.frame{margin-top:12px;background:#fff8df;border:2px solid #e3c76b;border-radius:9px;padding:12px;text-align:center;font-weight:700}
+.check{display:grid;grid-template-columns:1fr 1fr;gap:10px}.q{border:1px solid var(--line);border-radius:9px;padding:12px}.q h3{font-size:14px;margin:0 0 7px;color:var(--navy)}select{width:100%;padding:8px;border:1px solid #b8c4cb;border-radius:6px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:5px 20px 25px}
+@media(max-width:820px){.grid,.check,.steps{grid-template-columns:1fr}.board{min-height:650px}}
+</style>
+</head>
+<body>
+<header><div class="header"><div class="logo">CI</div><div><div class="kicker">Channel Islands High School • Marine Biology</div><h1>Nitrogen Cycle</h1><p>From nitrogen to a dead zone</p></div></div></header>
+<main>
+<section class="card hero"><h2>🌱 Your Mission</h2><p>Follow nitrogen as it moves through an ecosystem. Then see what happens when humans add too much nitrogen.</p><div class="objective">🧠 Keep asking: <b>Where is the nitrogen? → Where is it going? → What process moves it?</b></div></section>
+
+<div class="grid">
+<section class="board">
+<div class="board-title">Nitrogen Cycle Map</div><div class="board-sub">Gold dots = nitrogen. Use the buttons to move it.</div>
+<div class="res" id="atm"><h3>☁️ Atmosphere</h3><p>N₂ gas</p><div id="atmT"></div></div>
+<div class="res" id="soil"><h3>🌱 Soil</h3><p>Available nitrogen</p><div id="soilT"></div></div>
+<div class="res" id="plants"><h3>🌿 Plants</h3><p>Nitrogen in plants</p><div id="plantT"></div></div>
+<div class="res" id="animals"><h3>🐟 Animals</h3><p>Nitrogen in organisms</p><div id="animalT"></div></div>
+<div class="res" id="decomp"><h3>🦠 Decomposers</h3><p>Waste & dead organisms</p><div id="decompT"></div></div>
+<div class="res" id="water"><h3>🌊 Water</h3><p>Nitrogen in water</p><div id="waterT"></div><div>O₂: <b id="o2">10</b></div></div>
+<div class="res" id="algae"><h3>🌿 Algae</h3><p>Rapid algae growth</p><div id="algaeT"></div><div id="fish">🐟 🐟 🐟 🐟 🐟</div></div>
+<div class="arrow" id="a1">↓</div><div class="arrow" id="a2">↓</div><div class="arrow" id="a3">↘</div><div class="arrow" id="a4">↓</div><div class="arrow" id="a5">↓</div><div class="arrow" id="a6">↙</div>
+</section>
+
+<aside class="card controls">
+<h2>🎮 Control Panel</h2><p style="font-size:13px;color:var(--muted)">Choose a process. Read the message. Explain the move to your group.</p>
+<h3>Part 1 • Natural Cycle</h3>
+<button onclick="move('atm','soil','Nitrogen fixation')">🌩️ Nitrogen Fixation</button>
+<button onclick="move('soil','plants','Plant uptake')">🌱 Plant Uptake</button>
+<button onclick="move('plants','animals','Eating')">🐟 Eating</button>
+<button onclick="move('animals','decomp','Waste / Death')">💩 Waste / Death</button>
+<button onclick="move('decomp','soil','Decomposition')">🦠 Decomposition</button>
+<button onclick="move('soil','atm','Denitrification')">🦠 Denitrification</button>
+<h3>Part 2 • Human Impact</h3>
+<button class="impact" onclick="fertilizer()">🚜 Add Fertilizer</button>
+<button class="impact" onclick="runoff()">🌧️ Heavy Rain → Runoff</button>
+<button class="impact" onclick="algaeBloom()">🌿 Algae Bloom</button>
+<button class="impact" onclick="decomposeWater()">💀 Decomposition → O₂ Loss</button>
+<button class="reset" onclick="resetGame()">🔄 Reset</button>
+<div class="message" id="message"><b>Start here.</b><br><br>Choose <b>Nitrogen Fixation</b>. Before you click, ask: <b>Where is the nitrogen now?</b></div>
+<div class="status" id="status">🟢 <b>Healthy water</b><br>There is enough oxygen for the fish.</div>
+</aside>
+</div>
+
+<section class="card"><h2>🧠 How to Play</h2><div class="steps"><div class="step"><b>1. READ</b>Read the process.</div><div class="step"><b>2. THINK</b>Predict where nitrogen goes.</div><div class="step"><b>3. EXPLAIN</b>Explain why it moves.</div></div><div class="frame">“Nitrogen moves from __________ to __________ because of __________.”</div></section>
+
+<section class="card"><h2>🔎 Dead Zone Check</h2><p>Choose the best answer.</p><div class="check">
+<div class="q"><h3>1. What can add extra nitrogen to soil?</h3><select id="q1"><option value="">Choose...</option><option value="a">Fertilizer</option><option value="b">Condensation</option><option value="c">Denitrification</option></select></div>
+<div class="q"><h3>2. How can nitrogen move from land into water?</h3><select id="q2"><option value="">Choose...</option><option value="a">Runoff</option><option value="b">Photosynthesis</option><option value="c">Cellular respiration</option></select></div>
+<div class="q"><h3>3. What can happen when there is too much nitrogen in water?</h3><select id="q3"><option value="">Choose...</option><option value="a">Rapid algae growth</option><option value="b">Nitrogen disappears</option><option value="c">Nothing changes</option></select></div>
+<div class="q"><h3>4. Why can fish die?</h3><select id="q4"><option value="">Choose...</option><option value="a">Oxygen decreases after decomposition</option><option value="b">Fish cannot live near water</option><option value="c">Nitrogen turns into fish</option></select></div>
+</div><button style="max-width:250px;margin-top:12px" onclick="checkQuiz()">Check My Answers</button><div id="feedback" style="margin-top:10px;font-weight:700"></div></section>
+
+<section class="card"><h2>✏️ Final Challenge</h2><p><b>Explain:</b> How can fertilizer used on land eventually cause fish to die in the ocean?</p><div class="frame" style="text-align:left">Use these words if you need them: <b>fertilizer • nitrogen • runoff • algae • decomposition • oxygen • dead zone</b></div></section>
+</main>
+<footer>Channel Islands High School • Marine Biology • Nitrogen Cycle Review</footer>
+
+<script>
+let N={atm:10,soil:10,plants:0,animals:0,decomp:0,water:0,algae:0},oxygen=10,fish=5;
+function dots(n){return '<span class="token"></span>'.repeat(n)}
+function render(){
+document.getElementById('atmT').innerHTML=dots(N.atm);document.getElementById('soilT').innerHTML=dots(N.soil);
+document.getElementById('plantT').innerHTML=dots(N.plants);document.getElementById('animalT').innerHTML=dots(N.animals);
+document.getElementById('decompT').innerHTML=dots(N.decomp);document.getElementById('waterT').innerHTML=dots(N.water);document.getElementById('algaeT').innerHTML=dots(N.algae);
+document.getElementById('o2').textContent=oxygen;document.getElementById('fish').textContent=fish?'🐟 '.repeat(fish):'☠️ No fish';updateStatus()}
+function msg(t){document.getElementById('message').innerHTML=t}
+function move(from,to,process){if(N[from]<1){msg('⚠️ <b>Not enough nitrogen here.</b><br><br>Try another process or reset the game.');return}N[from]--;N[to]++;msg('<b>'+process+'</b><br><br>Nitrogen moves from <b>'+from.toUpperCase()+'</b> to <b>'+to.toUpperCase()+'</b>.<br><br>Say: <b>“Nitrogen moves from ___ to ___ because of ___.”</b>');render()}
+function fertilizer(){N.soil+=5;msg('<b>🚜 Fertilizer</b><br><br>Humans add extra nitrogen to the soil.<br><br><b>+5 nitrogen → SOIL</b><br><br>What might happen if plants cannot use all of it?');render()}
+function runoff(){let n=Math.min(5,N.soil);if(!n){msg('⚠️ There is no nitrogen in the soil to move. Try fertilizer first.');return}N.soil-=n;N.water+=n;msg('<b>🌧️ Heavy Rain / Runoff</b><br><br>Rain carries nitrogen from soil into water.<br><br><b>'+n+' nitrogen → WATER</b><br><br>This movement is called <b>runoff</b>.');render()}
+function algaeBloom(){if(!N.water){msg('⚠️ There is no nitrogen in the water yet. Try fertilizer → runoff first.');return}N.algae+=N.water;N.water=0;msg('<b>🌿 Algae Bloom</b><br><br>Extra nitrogen in water can contribute to rapid algae growth.<br><br><b>WATER → ALGAE</b><br><br>What might happen when the algae die?');render()}
+function decomposeWater(){if(!N.algae){msg('⚠️ There are no algae yet. Try Algae Bloom first.');return}N.decomp+=N.algae;N.algae=0;oxygen=Math.max(0,oxygen-4);if(oxygen<=3)fish=0;else if(oxygen<=5)fish=Math.max(1,fish-2);msg('<b>💀 Decomposition</b><br><br>Decomposers break down dead algae. During this process, dissolved oxygen decreases.<br><br><b>Oxygen lost: 4</b>');render()}
+function updateStatus(){let s=document.getElementById('status');if(oxygen<=3){s.className='status dead';s.innerHTML='🚨 <b>DEAD ZONE</b><br>Oxygen is very low. Many aquatic organisms cannot survive.'}else if(oxygen<=5){s.className='status warn';s.innerHTML='🟡 <b>LOW OXYGEN</b><br>Some aquatic organisms may struggle.'}else{s.className='status';s.innerHTML='🟢 <b>HEALTHY WATER</b><br>There is enough oxygen for the fish.'}}
+function resetGame(){N={atm:10,soil:10,plants:0,animals:0,decomp:0,water:0,algae:0};oxygen=10;fish=5;msg('<b>Game Reset!</b><br><br>Start with <b>Nitrogen Fixation</b>.');document.getElementById('feedback').textContent='';render()}
+function checkQuiz(){let a={q1:'a',q2:'a',q3:'a',q4:'a'},score=0;for(let q in a)if(document.getElementById(q).value===a[q])score++;let f=document.getElementById('feedback');f.textContent=score===4?'🎉 4/4 — Excellent!':score>=2?'👍 '+score+'/4 — Good start. Review the sequence.':'🔄 '+score+'/4 — Go back through the simulation and try again.'}
+render();
+</script>
+</body>
+</html>
